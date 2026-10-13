@@ -64,8 +64,35 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt --depth=1
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        # lede master 已不再维护 ipq40xx 的 5.4 内核：从老提交恢复平台与内核 5.4 相关目录
+        # 参考 yinzhefuyun/Actions-OpenWrt 的 "OpenWrt5.4 RT-ACRH17 Builder"（2026-09-29 编译成功）
+        rm -rf target/linux/generic/backport-5.4/ target/linux/generic/files-5.4/ \
+               target/linux/generic/hack-5.4/ target/linux/generic/pending-5.4/ \
+               target/linux/ipq40xx/ include/kernel-5.4 \
+               package/kernel/ath10k-ct/ package/kernel/mac80211/
+        PIN_COMMIT=61d090cddb5d0949c3a4d5c4639e5bb19a3a4bed
+        git checkout $PIN_COMMIT -- target/linux/generic/backport-5.4/
+        git checkout $PIN_COMMIT -- target/linux/generic/files-5.4/
+        git checkout $PIN_COMMIT -- target/linux/generic/hack-5.4/
+        git checkout $PIN_COMMIT -- target/linux/generic/pending-5.4/
+        git checkout $PIN_COMMIT -- target/linux/ipq40xx/
+        git checkout $PIN_COMMIT -- include/kernel-5.4
+        git checkout $PIN_COMMIT -- package/kernel/ath10k-ct/
+        git checkout $PIN_COMMIT -- package/kernel/mac80211/
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: Add third-party packages (AirConnect + accesscontrol-plus)
+      run: |
+        rm -rf /tmp/airfeed
+        git clone --depth=1 https://github.com/lllrrr/openwrt-packages /tmp/airfeed
+        cp -r /tmp/airfeed/airconnect /tmp/airfeed/luci-app-airconnect $GITHUB_WORKSPACE/openwrt/package/
+        rm -rf /tmp/airfeed
+        rm -rf /tmp/acpfeed
+        git clone --depth=1 https://github.com/kingyond/luci-app-accesscontrol-plus /tmp/acpfeed
+        cp -r /tmp/acpfeed/luci-app-accesscontrol-plus $GITHUB_WORKSPACE/openwrt/package/
+        rm -rf /tmp/acpfeed
 
     - name: Load custom feeds
       run: |
