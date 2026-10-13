@@ -1,1 +1,52 @@
-IyEvYmluL2Jhc2gKIwojIENvcHlyaWdodCAoYykgMjAxOS0yMDI0IFAzVEVSWCA8aHR0cHM6Ly9wM3RlcnguY29tPgojCiMgVGhpcyBpcyBmcmVlIHNvZnR3YXJlLCBsaWNlbnNlZCB1bmRlciB0aGUgTUlUIExpY2Vuc2UuCiMgU2VlIC9MSUNFTlNFIGZvciBtb3JlIGluZm9ybWF0aW9uLgojCiMgaHR0cHM6Ly9naXRodWIuY29tL1AzVEVSWC9BY3Rpb25zLU9wZW5XcnQKIyBGaWxlIG5hbWU6IGRpeS1wYXJ0Mi5zaAojIERlc2NyaXB0aW9uOiBPcGVuV3J0IERJWSBzY3JpcHQgcGFydCAyIChBZnRlciBVcGRhdGUgZmVlZHMpCiMKCiMgTW9kaWZ5IGRlZmF1bHQgSVAKI3NlZCAtaSAncy8xOTIuMTY4LjEuMS8xOTIuMTY4LjUwLjUvZycgcGFja2FnZS9iYXNlLWZpbGVzL2ZpbGVzL2Jpbi9jb25maWdfZ2VuZXJhdGUKCiMgc2V0IHpyYW1fY29tcF9hbGdvIGRlZmF1bHQgdG8gbHo0CnNlZCAtaSAncy96cmFtX2NvbXBfYWxnbz0ibHpvIi96cmFtX2NvbXBfYWxnbz0ibHo0Ii9nJyBwYWNrYWdlL3N5c3RlbS96cmFtLXN3YXAvZmlsZXMvenJhbS5pbml0CmVjaG8gdm0uc3dhcHBpbmVzcz0xMCA+PiBwYWNrYWdlL2Jhc2UtZmlsZXMvZmlsZXMvZXRjL3N5c2N0bC5jb25mCgojIEZpeCBrbW9kLWNyeXB0by1hZWFkIGdlbml2IGJ1aWxkIGZhaWx1cmUgb24ga2VybmVsIDUuNAojICjlj4LogIMgeWluemhlZnV5dW4g5oiQ5Yqf5p6E5bu677yaNS40IOiAgeWGheaguOe8luS4jei/hyBnZW5pdi5rb++8jOS7jiBjcnlwdG8ubWsg6YeM5Y675o6JKQpUQVJHRVRfRklMRT0icGFja2FnZS9rZXJuZWwvbGludXgvbW9kdWxlcy9jcnlwdG8ubWsiCmlmIFsgLWYgIiRUQVJHRVRfRklMRSIgXTsgdGhlbgogIGVjaG8gIlBhdGNoaW5nICRUQVJHRVRfRklMRSB0byByZW1vdmUgZ2VuaXYgLi4uIgogICMg56ys5LiA5q2l77ya5Y675o6J5bCG6KKr5Yig6Zmk6KGM55qE5YmN5LiA6KGM5pyr5bC+55qE57ut6KGM5Y+N5pac5p2gCiAgc2VkIC1pICdcI2RlZmluZSBLZXJuZWxQYWNrYWdlL2NyeXB0by1hZWFkIywvZW5kZWYvewogICAgTgogICAgL0NPTkZJR19DUllQVE9fR0VOSVZAbHQ2XC42XHxnZW5pdlwua29AbHQ2XC42L3sKICAgICAgcy9cXFxuL1xuLwogICAgfQogICAgUAogICAgRAogIH0nICIkVEFSR0VUX0ZJTEUiCiAgIyDnrKzkuozmraXvvJrliKDpmaQgR0VOSVYg55u45YWz6KGMCiAgc2VkIC1pICdcI2RlZmluZSBLZXJuZWxQYWNrYWdlL2NyeXB0by1hZWFkIywvZW5kZWYvewogICAgL0NPTkZJR19DUllQVE9fR0VOSVZAbHQ2XC42L2QKICAgIC9nZW5pdlwua29AbHQ2XC42L2QKICB9JyAiJFRBUkdFVF9GSUxFIgogIGVjaG8gImdlbml2IGZpeCBhcHBsaWVkLiIKZmkKCiMgRml4IGttb2QtbmZ0LWZ1bGxjb25lIGJ1aWxkIGZhaWx1cmUgb24ga2VybmVsIDUuNCAoYnVpbGQgMywgMjAyNi0xMC0xMykKIyBMZWFuIOWcqCAyMDI2LTEwLTAz77yIY29tbWl0IDJhMTJkMjM577yJ57uZIGZpcmV3YWxsNC9uZnRhYmxlcyDliqDkuoYgK2ttb2QtbmZ0LWZ1bGxjb25lIOehrOS+nei1lu+8jAojIOivpeaooeWdl+a6kOegge+8iDIwMjMtMDUtMTfvvInkuI7lm57mu5rnmoQgNS40LjI1NSDlhoXmoLggQVBJIOS4jeWFvOWuue+8iG5mdF9yZWdfbG9hZDE2IGNvbnN0IOmZkOWumuespuiiqyAtV2Vycm9yIOaLpuaIqu+8ie+8mwojIC5jb25maWcg5pep5bey5piO56Gu6YCJ55SoIGlwdGFibGVzIOeJiCBmdWxsY29uZeOAguWOu+aOieivpeehrOS+nei1lu+8jOaBouWkjSA5LTI5IOWPr+aehOW7uueKtuaAgeOAggpmb3IgX2YgaW4gcGFja2FnZS9uZXR3b3JrL2NvbmZpZy9maXJld2FsbDQvTWFrZWZpbGUgcGFja2FnZS9uZXR3b3JrL3V0aWxzL25mdGFibGVzL01ha2VmaWxlOyBkbwogIGlmIFsgLWYgIiRfZiIgXTsgdGhlbgogICAgZWNobyAiU3RyaXBwaW5nICtrbW9kLW5mdC1mdWxsY29uZSBmcm9tICRfZiAuLi4iCiAgICBzZWQgLWkgJ3MvK2ttb2QtbmZ0LWZ1bGxjb25lLy9nJyAiJF9mIgogIGZpCmRvbmUKdW5zZXQgX2YK
+#!/bin/bash
+#
+# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# File name: diy-part2.sh
+# Description: OpenWrt DIY script part 2 (After Update feeds)
+#
+
+# Modify default IP
+#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+
+# set zram_comp_algo default to lz4
+sed -i 's/zram_comp_algo="lzo"/zram_comp_algo="lz4"/g' package/system/zram-swap/files/zram.init
+echo vm.swappiness=10 >> package/base-files/files/etc/sysctl.conf
+
+# Fix kmod-crypto-aead geniv build failure on kernel 5.4
+# (参考 yinzhefuyun 成功构建：5.4 老内核编不过 geniv.ko，从 crypto.mk 里去掉)
+TARGET_FILE="package/kernel/linux/modules/crypto.mk"
+if [ -f "$TARGET_FILE" ]; then
+  echo "Patching $TARGET_FILE to remove geniv ..."
+  # 第一步：去掉将被删除行的前一行末尾的续行反斜杠
+  sed -i '\#define KernelPackage/crypto-aead#,/endef/{
+    N
+    /CONFIG_CRYPTO_GENIV@lt6\.6\|geniv\.ko@lt6\.6/{
+      s/\\\n/\n/
+    }
+    P
+    D
+  }' "$TARGET_FILE"
+  # 第二步：删除 GENIV 相关行
+  sed -i '\#define KernelPackage/crypto-aead#,/endef/{
+    /CONFIG_CRYPTO_GENIV@lt6\.6/d
+    /geniv\.ko@lt6\.6/d
+  }' "$TARGET_FILE"
+  echo "geniv fix applied."
+fi
+
+# Fix kmod-nft-fullcone build failure on kernel 5.4 (build 3, 2026-10-13)
+# Lean 在 2026-10-03（commit 2a12d239）给 firewall4/nftables 加了 +kmod-nft-fullcone 硬依赖，
+# 该模块源码（2023-05-17）与回滚的 5.4.255 内核 API 不兼容（nft_reg_load16 const 限定符被 -Werror 拦截）；
+# .config 早已明确选用 iptables 版 fullcone。去掉该硬依赖，恢复 9-29 可构建状态。
+for _f in package/network/config/firewall4/Makefile package/network/utils/nftables/Makefile; do
+  if [ -f "$_f" ]; then
+    echo "Stripping +kmod-nft-fullcone from $_f ..."
+    sed -i 's/+kmod-nft-fullcone//g' "$_f"
+  fi
+done
+unset _f
