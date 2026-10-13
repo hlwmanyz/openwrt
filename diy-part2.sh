@@ -23,7 +23,7 @@ TARGET_FILE="package/kernel/linux/modules/crypto.mk"
 if [ -f "$TARGET_FILE" ]; then
   echo "Patching $TARGET_FILE to remove geniv ..."
   # 第一步：去掉将被删除行的前一行末尾的续行反斜杠
-  sed -i '/define KernelPackage\/crypto-aead/,/endef/{
+  sed -i '\#define KernelPackage/crypto-aead#,/endef/{
     N
     /CONFIG_CRYPTO_GENIV@lt6\.6\|geniv\.ko@lt6\.6/{
       s/\\\n/\n/
@@ -32,7 +32,7 @@ if [ -f "$TARGET_FILE" ]; then
     D
   }' "$TARGET_FILE"
   # 第二步：删除 GENIV 相关行
-  sed -i '/define KernelPackage\/crypto-aead/,/endef/{
+  sed -i '\#define KernelPackage/crypto-aead#,/endef/{
     /CONFIG_CRYPTO_GENIV@lt6\.6/d
     /geniv\.ko@lt6\.6/d
   }' "$TARGET_FILE"
