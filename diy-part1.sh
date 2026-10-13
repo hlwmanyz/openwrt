@@ -10,8 +10,8 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
-# Uncomment a feed source
-sed -i '$a src-git helloworld https://github.com/fw876/helloworld;main' feeds.conf.default
+# helloworld 已被 lede 主分支自带（feeds.conf.default），再加会导致同名 feed 冲突使 update 失败，故注释掉
+#sed -i '$a src-git helloworld https://github.com/fw876/helloworld;main' feeds.conf.default
 
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
