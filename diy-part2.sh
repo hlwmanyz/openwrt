@@ -47,10 +47,12 @@ unset _f
 
 # 只为华硕 RT-ACRH17/RT-AC42U 生成镜像：删掉其它机型的 TARGET_DEVICES，
 # 避免缺 U-Boot 等外部依赖导致构建失败（回滚版源码的 Kconfig 设备选择未生效）
+# 注意：必须放在 $(eval $(call BuildImage)) 之前，否则 foreach 展开时列表为空
 IMG_MK="target/linux/ipq40xx/image/Makefile"
 if [ -f "$IMG_MK" ]; then
   echo "Pinning TARGET_DEVICES to asus_rt-acrh17 ..."
   sed -i '/^TARGET_DEVICES +=/d' "$IMG_MK"
-  echo 'TARGET_DEVICES += asus_rt-acrh17' >> "$IMG_MK"
+  sed -i '/^\$(eval \$(call BuildImage))$/d' "$IMG_MK"
+  printf 'TARGET_DEVICES += asus_rt-acrh17\n\n$(eval $(call BuildImage))\n' >> "$IMG_MK"
 fi
 unset IMG_MK
