@@ -64,3 +64,41 @@ if [ -f "$IMG_MK" ]; then
   printf 'TARGET_DEVICES += asus_rt-acrh17\n\n$(eval $(call BuildImage))\n' >> "$IMG_MK"
 fi
 unset IMG_MK
+
+# 默认 root 密码设为 'password'（MD5 crypt）
+ROOT_HASH='$1$wEeCo9Pr$3Gl/N4mJWkccZ5QTo8qij1'
+if [ -f "package/base-files/files/etc/shadow" ]; then
+  echo "Setting default root password ..."
+  sed -i "s|^root::|root:${ROOT_HASH}:|" package/base-files/files/etc/shadow
+fi
+unset ROOT_HASH
+
+# 首次开机自动启用无线：2.4G SSID=openwrt，5G SSID=openwrt_5G，均无密码
+mkdir -p files/etc
+cat > files/etc/rc.local << 'RCLOCAL'
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+# First-boot: enable wifi with open SSIDs (runs once)
+if [ ! -f /etc/.wifi_default_done ]; then
+  for i in $(seq 1 30); do
+    [ -f /etc/config/wireless ] && break
+    sleep 2
+  done
+  if [ -f /etc/config/wireless ]; then
+    uci set wireless.radio0.disabled='0'
+    uci set wireless.default_radio0.ssid='openwrt'
+    uci set wireless.default_radio0.encryption='none'
+    uci delete wireless.default_radio0.key 2>/dev/null
+    uci set wireless.radio1.disabled='0'
+    uci set wireless.default_radio1.ssid='openwrt_5G'
+    uci set wireless.default_radio1.encryption='none'
+    uci delete wireless.default_radio1.key 2>/dev/null
+    uci commit wireless
+    wifi reload
+  fi
+  touch /etc/.wifi_default_done
+fi
+
+exit 0
+RCLOCAL
