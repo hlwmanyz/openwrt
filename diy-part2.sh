@@ -74,12 +74,14 @@ fi
 unset ROOT_HASH
 
 # 首次开机自动启用无线：2.4G SSID=openwrt，5G SSID=openwrt_5G，均无密码
+# 注意：RT-ACRH17 上 radio0=5GHz，radio1=2.4GHz（与常规相反）
 mkdir -p files/etc
 cat > files/etc/rc.local << 'RCLOCAL'
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 
 # First-boot: enable wifi with open SSIDs (runs once)
+# RT-ACRH17: radio0=5GHz, radio1=2.4GHz
 if [ ! -f /etc/.wifi_default_done ]; then
   for i in $(seq 1 30); do
     [ -f /etc/config/wireless ] && break
@@ -87,17 +89,32 @@ if [ ! -f /etc/.wifi_default_done ]; then
   done
   if [ -f /etc/config/wireless ]; then
     uci set wireless.radio0.disabled='0'
-    uci set wireless.default_radio0.ssid='openwrt'
+    uci set wireless.default_radio0.ssid='openwrt_5G'
     uci set wireless.default_radio0.encryption='none'
     uci delete wireless.default_radio0.key 2>/dev/null
     uci set wireless.radio1.disabled='0'
-    uci set wireless.default_radio1.ssid='openwrt_5G'
+    uci set wireless.default_radio1.ssid='openwrt'
     uci set wireless.default_radio1.encryption='none'
     uci delete wireless.default_radio1.key 2>/dev/null
     uci commit wireless
     wifi reload
   fi
   touch /etc/.wifi_default_done
+fi
+
+# First-boot: ZeroTier safeguard - if the UCI 'secret' looks like a 16-char
+# Network ID (user mistakenly put Network ID in the "client secret" field),
+# remove it so zerotier-one generates a proper identity instead of crashing.
+# The correct way to join a network is: zerotier-cli join <network_id>
+if [ ! -f /etc/.zt_secret_fixed ]; then
+  ZT_SEC="$(uci get zerotier.global.secret 2>/dev/null)"
+  if echo "$ZT_SEC" | grep -qE '^[0-9a-fA-F]{16}$'; then
+    logger -t zerotier-fix "Removing Network ID mistakenly set as secret; use 'zerotier-cli join <id>' instead"
+    uci delete zerotier.global.secret
+    uci commit zerotier
+    rm -f /var/lib/zerotier-one/identity.secret /var/lib/zerotier-one/identity.public
+  fi
+  touch /etc/.zt_secret_fixed
 fi
 
 exit 0
