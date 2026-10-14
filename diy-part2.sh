@@ -45,6 +45,14 @@ for _f in package/network/config/firewall4/Makefile package/network/utils/nftabl
 done
 unset _f
 
+# 恢复回滚版的 ipq-wifi board 固件包（主线已删除 asus_rt-acrh17，需与回滚的 image Makefile 配套）
+# 工作流的回滚未覆盖 package/firmware/ipq-wifi/，导致无线 board-2.bin 缺失、无线页面不显示
+if [ -d "package/firmware/ipq-wifi" ]; then
+  echo "Restoring ipq-wifi from 61d090c ..."
+  rm -rf package/firmware/ipq-wifi
+  git checkout 61d090cddb5d0949c3a4d5c4639e5bb19a3a4bed -- package/firmware/ipq-wifi/
+fi
+
 # 只为华硕 RT-ACRH17/RT-AC42U 生成镜像：删掉其它机型的 TARGET_DEVICES，
 # 避免缺 U-Boot 等外部依赖导致构建失败（回滚版源码的 Kconfig 设备选择未生效）
 # 注意：必须放在 $(eval $(call BuildImage)) 之前，否则 foreach 展开时列表为空
