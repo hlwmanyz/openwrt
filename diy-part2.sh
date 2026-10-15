@@ -82,22 +82,26 @@ cat > files/etc/rc.local << 'RCLOCAL'
 
 # First-boot: enable wifi with open SSIDs (runs once)
 # RT-ACRH17: radio0=5GHz, radio1=2.4GHz
+# Skip if user already configured wifi (e.g., upgrade with "Keep settings")
 if [ ! -f /etc/.wifi_default_done ]; then
   for i in $(seq 1 30); do
     [ -f /etc/config/wireless ] && break
     sleep 2
   done
   if [ -f /etc/config/wireless ]; then
-    uci set wireless.radio0.disabled='0'
-    uci set wireless.default_radio0.ssid='openwrt_5G'
-    uci set wireless.default_radio0.encryption='none'
-    uci delete wireless.default_radio0.key 2>/dev/null
-    uci set wireless.radio1.disabled='0'
-    uci set wireless.default_radio1.ssid='openwrt'
-    uci set wireless.default_radio1.encryption='none'
-    uci delete wireless.default_radio1.key 2>/dev/null
-    uci commit wireless
-    wifi reload
+    CUR_SSID=$(uci get wireless.default_radio0.ssid 2>/dev/null)
+    if [ -z "$CUR_SSID" ] || [ "$CUR_SSID" = "OpenWrt" ]; then
+      uci set wireless.radio0.disabled='0'
+      uci set wireless.default_radio0.ssid='openwrt_5G'
+      uci set wireless.default_radio0.encryption='none'
+      uci delete wireless.default_radio0.key 2>/dev/null
+      uci set wireless.radio1.disabled='0'
+      uci set wireless.default_radio1.ssid='openwrt'
+      uci set wireless.default_radio1.encryption='none'
+      uci delete wireless.default_radio1.key 2>/dev/null
+      uci commit wireless
+      wifi reload
+    fi
   fi
   touch /etc/.wifi_default_done
 fi
