@@ -117,8 +117,8 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e ${{ matrix.config }} ] && cp ${{ matrix.config }} openwrt/.config files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e files ] && mv files openwrt/files
+        [ -e ${{ matrix.config }} ] && cp ${{ matrix.config }} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
