@@ -42,8 +42,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - config: .config
-            suffix: _openclash
           - config: .config-ssr
             suffix: _ssr
 
@@ -174,7 +172,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware${{ matrix.suffix }}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
