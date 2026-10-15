@@ -119,3 +119,15 @@ fi
 
 exit 0
 RCLOCAL
+
+# Patch AirConnect: add audio codec selection (LuCI dropdown + init script support)
+# 补丁文件在 $GITHUB_WORKSPACE/patches/airconnect/
+PATCH_DIR="$GITHUB_WORKSPACE/patches/airconnect"
+if [ -d "$PATCH_DIR" ]; then
+  echo "Applying AirConnect codec patch..."
+  cp "$PATCH_DIR/airconnect.js" package/luci-app-airconnect/htdocs/luci-static/resources/view/airconnect.js
+  cp "$PATCH_DIR/airconnect.po" package/luci-app-airconnect/po/zh_Hans/airconnect.po
+  cp "$PATCH_DIR/airconnect.init" package/airconnect/files/airconnect.init
+  cp "$PATCH_DIR/airconnect.config" package/airconnect/files/airconnect.config
+  echo "AirConnect codec patch applied."
+fi
