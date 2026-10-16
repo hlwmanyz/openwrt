@@ -82,15 +82,23 @@ cat > files/etc/rc.local << 'RCLOCAL'
 
 # First-boot: enable wifi with open SSIDs (runs once)
 # RT-ACRH17: radio0=5GHz, radio1=2.4GHz
-# Skip if user already configured wifi (e.g., upgrade with "Keep settings")
+# Skip if user already configured wifi (e.g., upgrade with "Keep settings"):
+# check ALL wifi-iface sections for a custom SSID
 if [ ! -f /etc/.wifi_default_done ]; then
   for i in $(seq 1 30); do
     [ -f /etc/config/wireless ] && break
     sleep 2
   done
   if [ -f /etc/config/wireless ]; then
-    CUR_SSID=$(uci get wireless.default_radio0.ssid 2>/dev/null)
-    if [ -z "$CUR_SSID" ] || [ "$CUR_SSID" = "OpenWrt" ]; then
+    HAS_CUSTOM=0
+    for _sec in $(uci show wireless 2>/dev/null | grep "=wifi-iface" | cut -d'.' -f2 | cut -d'=' -f1); do
+      _ssid=$(uci get wireless."$_sec".ssid 2>/dev/null)
+      if [ -n "$_ssid" ] && [ "$_ssid" != "OpenWrt" ]; then
+        HAS_CUSTOM=1
+        break
+      fi
+    done
+    if [ "$HAS_CUSTOM" -eq 0 ]; then
       uci set wireless.radio0.disabled='0'
       uci set wireless.default_radio0.ssid='openwrt_5G'
       uci set wireless.default_radio0.encryption='none'
