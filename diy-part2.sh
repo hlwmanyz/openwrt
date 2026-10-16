@@ -112,6 +112,8 @@ if [ ! -f /etc/.wifi_default_done ]; then
     fi
   fi
   touch /etc/.wifi_default_done
+  # Preserve the guard file across "keep settings" sysupgrades
+  grep -q "^/etc/.wifi_default_done$" /etc/sysupgrade.conf 2>/dev/null || echo "/etc/.wifi_default_done" >> /etc/sysupgrade.conf
 fi
 
 # First-boot: ZeroTier safeguard - if the UCI 'secret' looks like a 16-char
@@ -127,6 +129,8 @@ if [ ! -f /etc/.zt_secret_fixed ]; then
     rm -f /var/lib/zerotier-one/identity.secret /var/lib/zerotier-one/identity.public
   fi
   touch /etc/.zt_secret_fixed
+  # Preserve the guard file across "keep settings" sysupgrades
+  grep -q "^/etc/.zt_secret_fixed$" /etc/sysupgrade.conf 2>/dev/null || echo "/etc/.zt_secret_fixed" >> /etc/sysupgrade.conf
 fi
 
 exit 0
