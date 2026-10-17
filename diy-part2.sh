@@ -147,3 +147,18 @@ if [ -d "$PATCH_DIR" ]; then
   cp "$PATCH_DIR/airconnect.config" package/airconnect/files/airconnect.config
   echo "AirConnect codec patch applied."
 fi
+
+# Add luci-app-unblockmusic from maxlicheng (feed version missing/broken)
+# 官方 feed 里没有可用的 luci-app-unblockmusic，用第三方源
+if [ ! -d "package/luci-app-unblockmusic" ]; then
+  echo "Cloning luci-app-unblockmusic from maxlicheng..."
+  rm -rf /tmp/unblockmusic-src
+  git clone --depth=1 https://github.com/maxlicheng/luci-app-unblockmusic /tmp/unblockmusic-src
+  if [ -d "/tmp/unblockmusic-src/app" ]; then
+    cp -r /tmp/unblockmusic-src/app package/luci-app-unblockmusic
+    echo "luci-app-unblockmusic added."
+  else
+    echo "WARNING: luci-app-unblockmusic source not found!"
+  fi
+  rm -rf /tmp/unblockmusic-src
+fi
