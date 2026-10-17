@@ -150,6 +150,8 @@ fi
 
 # Add luci-app-unblockmusic from maxlicheng (feed version missing/broken)
 # 官方 feed 里没有可用的 luci-app-unblockmusic，用第三方源
+# 暂时禁用：2026-10-17 构建失败，疑似该包导致编译错误，先保证 NTFS 部分能过
+if false; then
 if [ ! -d "package/luci-app-unblockmusic" ]; then
   echo "Cloning luci-app-unblockmusic from maxlicheng..."
   rm -rf /tmp/unblockmusic-src
@@ -161,4 +163,5 @@ if [ ! -d "package/luci-app-unblockmusic" ]; then
     echo "WARNING: luci-app-unblockmusic source not found!"
   fi
   rm -rf /tmp/unblockmusic-src
+fi
 fi
