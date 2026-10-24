@@ -165,3 +165,27 @@ if [ ! -d "package/luci-app-unblockmusic" ]; then
   rm -rf /tmp/unblockmusic-src
 fi
 fi
+
+# Fix luci-app-timecontrol nft weekday case bug (found 2026-10-24)
+# Upstream init script emits lowercase weekday names (monday, tuesday, ...) for
+# nft "meta day" rules; the nft parser rejects them ("did you mean 'Saturday'?"),
+# so no rule is ever loaded and the timecontrol chain stays empty.
+# Capitalize the weekday names used for nft_days. Verified live on the router:
+# a capitalized rule loads fine and blocks traffic.
+TC_FILE=""
+for f in \
+  feeds/luci/applications/luci-app-timecontrol/root/etc/init.d/timecontrol \
+  package/feeds/luci/luci-app-timecontrol/root/etc/init.d/timecontrol \
+  package/luci-app-timecontrol/root/etc/init.d/timecontrol; do
+  if [ -f "$f" ]; then
+    TC_FILE="$f"
+    break
+  fi
+done
+if [ -n "$TC_FILE" ]; then
+  echo "Patching timecontrol weekday case in $TC_FILE ..."
+  sed -i 's/monday/Monday/g; s/tuesday/Tuesday/g; s/wednesday/Wednesday/g; s/thursday/Thursday/g; s/friday/Friday/g; s/saturday/Saturday/g; s/sunday/Sunday/g' "$TC_FILE"
+  echo "timecontrol patch applied."
+else
+  echo "WARNING: timecontrol init script not found, patch skipped!"
+fi
