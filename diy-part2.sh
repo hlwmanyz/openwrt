@@ -185,6 +185,10 @@ done
 if [ -n "$TC_FILE" ]; then
   echo "Patching timecontrol weekday case in $TC_FILE ..."
   sed -i 's/monday/Monday/g; s/tuesday/Tuesday/g; s/wednesday/Wednesday/g; s/thursday/Thursday/g; s/friday/Friday/g; s/saturday/Saturday/g; s/sunday/Sunday/g' "$TC_FILE"
+  # Second bug: start_nft ends with 'nft flush flowtable inet fw4 flowtable_ft',
+  # which fails when flow offloading is off (no such flowtable), making
+  # start_nft return non-zero so start() aborts before loading any rule.
+  sed -i 's#nft flush flowtable inet fw4 flowtable_ft 2>/dev/null#nft flush flowtable inet fw4 flowtable_ft 2>/dev/null || true#' "$TC_FILE"
   echo "timecontrol patch applied."
 else
   echo "WARNING: timecontrol init script not found, patch skipped!"
